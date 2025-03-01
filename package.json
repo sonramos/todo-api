@@ -4,6 +4,7 @@
   "description": "Node.js Back-End for a To-Do app",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint './src/**/*.ts'",
     "lint:fix": "eslint './src/**/*.ts --fix'",
@@ -20,6 +21,9 @@
   },
   "homepage": "https://github.com/sonramos/todo-api#readme",
   "devDependencies": {
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
     "@types/node": "^22.13.8",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
@@ -27,5 +31,13 @@
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "5.7"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "compression": "^1.8.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
   }
 }
