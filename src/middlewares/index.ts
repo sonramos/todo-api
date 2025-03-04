@@ -2,7 +2,7 @@ import express from 'express';
 
 import { get, merge } from 'lodash';
 
-import { getUserBySessionToken } from '../models/user/User';
+import { findUserBySessionToken } from '../services/userService';
 
 export const isOwner = async (
   req: express.Request,
@@ -49,7 +49,7 @@ export const isAuthenticated = async (
       return;
     }
 
-    const loggedUser = await getUserBySessionToken(sessionToken);
+    const loggedUser = await findUserBySessionToken(sessionToken);
 
     if (!loggedUser) {
       res.sendStatus(403);

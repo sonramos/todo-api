@@ -31,7 +31,7 @@ describe('User API Tests', () => {
     const response = await request(app).post('/api/auth/register').send({
       name: 'John Doe',
       email: 'john@email.com',
-      password: '123456',
+      password: 'Aa1@bcde',
     });
 
     console.log('Resposta', response);
@@ -47,7 +47,7 @@ describe('User API Tests', () => {
     console.log('logged in!!');
     const response = await request(app).post('/api/auth/login').send({
       email: 'john@email.com',
-      password: '123456',
+      password: 'Aa1@bcde',
     });
 
     console.log('Resposta de login', response.body);

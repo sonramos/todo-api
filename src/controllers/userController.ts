@@ -1,11 +1,29 @@
 import express from 'express';
 
+import {} from '../models/user/User';
 import {
-  deleteUserById,
-  getUserById,
-  getUsers,
-  updateUserById,
-} from '../models/user/User';
+  createUserService,
+  deleteUserByIdService,
+  findUserByIdService,
+  updateUserByIdService,
+  findAllUsersService,
+} from '../services/userService';
+
+// CREATE - Create a user
+export const createUserController = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    const newUser = await createUserService(req.body);
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({
+      error: error.errors || 'Error on User register',
+    });
+  }
+};
 
 // GET - Read all users
 export const findAllUsers = async (
@@ -13,8 +31,7 @@ export const findAllUsers = async (
   res: express.Response,
 ) => {
   try {
-    const users = await getUsers();
-    console.log('Consultou');
+    const users = await findAllUsersService();
     res.status(200).json(users);
     return;
   } catch (error) {
@@ -31,7 +48,7 @@ export const findUserById = async (
 ) => {
   try {
     const { id } = req.params;
-    const user = await getUserById(id);
+    const user = await findUserByIdService(id);
 
     if (!user) {
       res.sendStatus(404);
@@ -56,13 +73,13 @@ export const updateUser = async (
     const { name, email } = req.body;
 
     // Verificar se o usuário existe
-    const existingUser = await getUserById(id);
+    const existingUser = await findUserByIdService(id);
     if (!existingUser) {
       res.status(404).json({ error: 'Usuário não encontrado' });
       return;
     }
 
-    const updatedUser = await updateUserById(id, { name, email });
+    const updatedUser = await updateUserByIdService(id, { name, email });
 
     res.status(200).json(updatedUser).end();
     return;
@@ -81,7 +98,7 @@ export const deleteUser = async (
   try {
     const { id } = req.params;
 
-    const deletedUser = await deleteUserById(id);
+    const deletedUser = await deleteUserByIdService(id);
 
     res.status(204).json(deletedUser);
     return;
