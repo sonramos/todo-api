@@ -71,7 +71,7 @@ describe('Task API Tests', () => {
     expect(Array.isArray(response.body)).toBeTruthy();
   });
 
-  test('Should get an Task by ID', async () => {
+  test('Should get a Task by ID', async () => {
     expect(taskId).toBeDefined();
 
     const response = await request(app).get(`/api/tasks/${taskId}`);
@@ -80,7 +80,7 @@ describe('Task API Tests', () => {
     expect(response.body._id).toEqual(taskId);
   });
 
-  test('Should update an task', async () => {
+  test('Should update a task', async () => {
     expect(taskId).toBeDefined();
 
     console.log(taskId);
@@ -96,7 +96,25 @@ describe('Task API Tests', () => {
     expect(response.body.description).toEqual('Updated description');
   });
 
-  test('Should delete an task', async () => {
+  test('Should update the status of a task', async () => {
+    expect(taskId).toBeDefined();
+
+    console.log(taskId);
+
+    const response = await request(app)
+      .patch(`/api/tasks/${taskId}/status`)
+      .send({
+        status: 'em progresso',
+      });
+    console.log(response.body);
+    console.log(response.body.status);
+
+    expect(response.status).toBe(200);
+    expect(response.body._id).toEqual(taskId);
+    expect(response.body.status).toEqual('em progresso');
+  });
+
+  test('Should delete a task', async () => {
     expect(taskId).toBeDefined();
 
     const response = await request(app).delete(`/api/tasks/${taskId}`);

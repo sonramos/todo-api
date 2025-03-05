@@ -35,23 +35,6 @@ export const findTaskByIdService = async (id: string) => {
   return await TaskModel.findById(id);
 };
 
-// // Find by Email
-// export const findTaskByEmail = async (email: string) => {
-//   if (!email) {
-//     throw new Error('Invalid email');
-//   }
-//   return await TaskModel.findOne({ email }).select(
-//     '+authentication +authentication.salt +authentication.password',
-//   );
-// };
-// // Find by SessionToken
-// export const findTaskBySessionToken = async (token: string) => {
-//   if (!token) {
-//     throw new Error('Invalid token');
-//   }
-//   return await TaskModel.findOne({ 'authentication.sessionToken': token });
-// };
-
 // UPDATE
 export const updateTaskByIdService = async (
   id: string,
@@ -60,6 +43,17 @@ export const updateTaskByIdService = async (
   return await TaskModel.findByIdAndUpdate(id, updatedData, {
     new: true,
   });
+};
+
+export const updateTaskStatusByIdService = async (
+  id: string,
+  status: string,
+) => {
+  return await TaskModel.findByIdAndUpdate(
+    id,
+    { status },
+    { new: true, runValidators: true },
+  );
 };
 
 // DELETE

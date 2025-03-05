@@ -6,6 +6,7 @@ import {
   findAllTasksService,
   findTaskByIdService,
   updateTaskByIdService,
+  updateTaskStatusByIdService,
 } from '../services/taskService';
 
 // CREATE - Create a task
@@ -99,6 +100,32 @@ export const updateTaskController = async (
       status,
     });
     console.log(updatedTask);
+
+    res.status(200).json(updatedTask).end();
+    return;
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(400);
+    return;
+  }
+};
+
+export const updateTaskStatusByIdController = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    // Verificar se o task existe
+    const existingTask = await findTaskByIdService(id);
+    if (!existingTask) {
+      res.status(404).json({ error: 'Task not found' });
+      return;
+    }
+
+    const updatedTask = await updateTaskStatusByIdService(id, status);
 
     res.status(200).json(updatedTask).end();
     return;
