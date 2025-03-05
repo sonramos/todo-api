@@ -35,13 +35,13 @@ npm install
 
 ### 3️⃣ Configurar Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto e preencha com as seguintes variáveis:
+Crie um arquivo `.env` na raiz do projeto e preencha com as seguintes variáveis, substituindo DB_USERNAME e DB_PASSWORD, por suas credenciais de acesso ao banco de dados:
 
 ```
 NODE_ENV=development
 PORT=3000
-DB_URI=mongodb://localhost:27017/todo-db
-DB_URI_TEST=mongodb://localhost:27017/todo-db-test
+DB_URI=mongodb://DB_USERNAME:DB_PASSWORD@localhost:27017/todo-db
+DB_URI_TEST=mongodb://DB_USERNAME:DB_PASSWORD@localhost:27017/todo-db-test
 ```
 
 ### 4️⃣ Iniciar o Servidor
