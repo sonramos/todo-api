@@ -21,7 +21,7 @@ TODO-API é uma API RESTful desenvolvida em Node.js para um sistema de gerenciam
 ### 1️⃣ Clonar o Repositório
 
 ```sh
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/sonramos/todo-api.git
 cd TODO-API
 ```
 
