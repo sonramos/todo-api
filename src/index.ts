@@ -8,7 +8,6 @@ import mongoose from 'mongoose';
 import router from './routes/router';
 
 dotenv.config();
-console.log('🔍 JWT_SECRET carregado:', process.env.JWT_SECRET);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,7 +17,6 @@ if (process.env.NODE_ENV == 'test') {
 } else {
   DB_URI = process.env.DB_URI;
 }
-console.log(DB_URI);
 app.use(
   cors({
     credentials: true,
