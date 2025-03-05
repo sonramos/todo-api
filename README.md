@@ -18,6 +18,8 @@ TODO-API é uma API RESTful desenvolvida em Node.js para um sistema de gerenciam
 
 ## ⚙️ Como Rodar o Projeto Localmente
 
+Para rodar o projeto, é necessário haver uma instância ativa do banco de dados MongoDB. A URI de acesso ao banco será utilizada para a conexão com a aplicação.
+
 ### 1️⃣ Clonar o Repositório
 
 ```sh
