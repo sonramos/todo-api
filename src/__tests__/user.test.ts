@@ -12,30 +12,24 @@ describe('User API Tests', () => {
   beforeAll(async () => {
     try {
       await connectDB(dbUriTest);
-      console.log('🔍 Conectando ao banco de dados de testes:');
 
       await UserModel.deleteMany({});
     } catch (error) {
-      console.log('❌ Erro ao conectar ao banco de dados de teste:', error);
+      console.error(error);
       throw error;
     }
   });
 
   afterAll(async () => {
     await closeDB();
-    console.log('🔍 Fechando conexão com o banco de dados de testes.');
   });
 
   test('Should register a new user', async () => {
-    console.log('tested!!');
     const response = await request(app).post('/api/auth/register').send({
       name: 'John Doe',
       email: 'john@email.com',
       password: 'Aa1@bcde',
     });
-
-    console.log('Resposta', response);
-    console.log('Resposta de registro', response.body);
 
     expect(response.status).toBe(201);
     expect(response.body.name).toEqual('John Doe');
@@ -44,13 +38,10 @@ describe('User API Tests', () => {
   });
 
   test('Should log in as user', async () => {
-    console.log('logged in!!');
     const response = await request(app).post('/api/auth/login').send({
       email: 'john@email.com',
       password: 'Aa1@bcde',
     });
-
-    console.log('Resposta de login', response.body);
 
     expect(response.status).toBe(200);
   });
@@ -64,8 +55,6 @@ describe('User API Tests', () => {
 
   test('Should get an user by ID', async () => {
     const response = await request(app).get(`/api/users/${userId}`);
-    console.log('GetId test');
-    console.log(response.body);
     expect(response.status).toBe(200);
   });
 

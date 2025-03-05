@@ -27,7 +27,6 @@ export const isTaskOwner = async (
       res.sendStatus(403);
       return;
     }
-    console.log('User:', loggedUser);
 
     const userId = loggedUser._id.toString();
 
@@ -38,8 +37,6 @@ export const isTaskOwner = async (
       res.sendStatus(403);
       return;
     }
-    console.log('Task:', task);
-    console.log('Task:', task.user);
 
     if (task.user.toString() != userId) {
       res.sendStatus(403);
@@ -66,9 +63,6 @@ export const isOwner = async (
 
     const { id } = req.params;
     const currentUserId = get(req, 'identity._id') as unknown as string;
-
-    console.log(currentUserId);
-    // console.log(req);
 
     if (!currentUserId) {
       res.sendStatus(403);

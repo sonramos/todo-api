@@ -14,7 +14,6 @@ describe('Task API Tests', () => {
   beforeAll(async () => {
     try {
       await connectDB(dbUriTest);
-      console.log('🔍 Conectando ao banco de dados de testes:');
 
       await TaskModel.deleteMany({});
       await UserModel.deleteMany({});
@@ -83,13 +82,9 @@ describe('Task API Tests', () => {
   test('Should update a task', async () => {
     expect(taskId).toBeDefined();
 
-    console.log(taskId);
-
     const response = await request(app).put(`/api/tasks/${taskId}`).send({
       description: 'Updated description',
     });
-    console.log(response.body);
-    console.log(response.body.description);
 
     expect(response.status).toBe(200);
     expect(response.body._id).toEqual(taskId);
@@ -99,15 +94,11 @@ describe('Task API Tests', () => {
   test('Should update the status of a task', async () => {
     expect(taskId).toBeDefined();
 
-    console.log(taskId);
-
     const response = await request(app)
       .patch(`/api/tasks/${taskId}/status`)
       .send({
         status: 'em progresso',
       });
-    console.log(response.body);
-    console.log(response.body.status);
 
     expect(response.status).toBe(200);
     expect(response.body._id).toEqual(taskId);

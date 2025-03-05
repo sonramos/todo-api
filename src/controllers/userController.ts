@@ -72,10 +72,9 @@ export const updateUser = async (
     const { id } = req.params;
     const { name, email } = req.body;
 
-    // Verificar se o usuário existe
     const existingUser = await findUserByIdService(id);
     if (!existingUser) {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: 'User not found' });
       return;
     }
 

@@ -6,7 +6,7 @@ const AuthenticationSchema = new mongoose.Schema(
     salt: { type: String, select: false },
     sessionToken: { type: String, select: false },
   },
-  { _id: false }, // 🔹 Isso impede que o Mongoose crie um _id para authentication
+  { _id: false },
 );
 
 const UserSchema = new mongoose.Schema(

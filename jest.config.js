@@ -9,7 +9,6 @@ module.exports = {
   clearMocks: true,
   resetMocks: true,
   restoreMocks: true,
-  // Define variáveis de ambiente para testes
   globals: {
     'process.env': {
       NODE_ENV: 'test',

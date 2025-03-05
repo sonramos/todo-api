@@ -2,14 +2,13 @@ import mongoose from 'mongoose';
 
 export const connectDB = async (uri: string): Promise<void> => {
   if (!uri) {
-    throw new Error('Erro: URI de banco de dados não definida!');
+    throw new Error('Erro: undefined URI!');
   }
 
   try {
     await mongoose.connect(uri);
-    console.log('🔥 Conectado ao MongoDB!');
   } catch (error) {
-    console.error('❌ Erro ao conectar ao MongoDB:', error);
+    console.error('MongoDB Connection Error:', error);
     throw error;
   }
 };

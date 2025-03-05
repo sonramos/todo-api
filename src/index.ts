@@ -37,12 +37,12 @@ server.listen(PORT, () => {
 
 mongoose.Promise = Promise;
 if (!DB_URI) {
-  console.error('Erro: DB_URI não definida!');
+  console.error('Erro: undefined DB_URI!');
   process.exit(1);
 }
 
 mongoose.connect(DB_URI).catch((error) => {
-  console.error('❌ Erro ao conectar ao MongoDB:', error);
+  console.error('MongoDB Connection Error::', error);
   process.exit(1);
 });
 

@@ -6,7 +6,6 @@ export const authentication = (salt: string, password: string) => {
   const SECRET = getSecret();
 
   if (!SECRET) {
-    console.error(`Deu erro aqui. não teve SECRET = ${SECRET}`);
     return;
   }
 
