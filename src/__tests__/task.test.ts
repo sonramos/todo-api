@@ -19,27 +19,20 @@ describe('Task API Tests', () => {
       await TaskModel.deleteMany({});
       await UserModel.deleteMany({});
     } catch (error) {
-      console.log('Erro ao conectar ao banco de dados de teste:', error);
-      throw error;
+      console.error('Erro ao conectar ao banco de dados de teste:', error);
     }
   });
 
   afterAll(async () => {
     await closeDB();
-    console.log('🔍 Fechando conexão com o banco de dados de testes.');
   });
 
   test('Should register a new user', async () => {
-    console.log('tested!!');
     const response = await request(app).post('/api/auth/register').send({
       name: 'John Doe',
       email: 'john@email.com',
       password: 'Aa1@bcde',
     });
-
-    console.log('Resposta', response);
-    console.log('Resposta de registro', response.body);
-    console.log('Resposta de registro', response.body._id);
 
     expect(response.status).toBe(201);
     expect(response.body.name).toEqual('John Doe');
@@ -48,28 +41,21 @@ describe('Task API Tests', () => {
   });
 
   test('Should log in as user', async () => {
-    console.log('logged in!!');
     const response = await request(app).post('/api/auth/login').send({
       email: 'john@email.com',
       password: 'Aa1@bcde',
     });
 
-    console.log('Resposta de login', response.body);
     expect(response.status).toBe(200);
   });
 
   test('Should create a new Task', async () => {
     expect(userId).toBeDefined();
-    console.log('tested!!');
-    console.log(userId);
 
     const response = await request(app).post('/api/tasks').send({
       title: 'Minha Tarefa',
       userId: userId,
     });
-
-    console.log('Resposta', response);
-    console.log('Resposta de registro', response.body);
 
     expect(response.status).toBe(201);
     expect(response.body.title).toEqual('Minha Tarefa');
@@ -90,25 +76,31 @@ describe('Task API Tests', () => {
 
     const response = await request(app).get(`/api/tasks/${taskId}`);
 
-    console.log('GetId test');
-    console.log(response.body);
-
     expect(response.status).toBe(200);
     expect(response.body._id).toEqual(taskId);
   });
 
-  // test('Should update an user', async () => {
-  //   const response = await request(app).put(`/api/tasks/${userId}`).send({
-  //     name: 'Updated Name',
-  //   });
+  test('Should update an task', async () => {
+    expect(taskId).toBeDefined();
 
-  //   expect(response.status).toBe(200);
-  //   expect(response.body.name).toBe('Updated Name');
-  // });
+    console.log(taskId);
 
-  // test('Should delete an user', async () => {
-  //   const response = await request(app).delete(`/api/tasks/${userId}`);
+    const response = await request(app).put(`/api/tasks/${taskId}`).send({
+      description: 'Updated description',
+    });
+    console.log(response.body);
+    console.log(response.body.description);
 
-  //   expect(response.status).toBe(204);
-  // });
+    expect(response.status).toBe(200);
+    expect(response.body._id).toEqual(taskId);
+    expect(response.body.description).toEqual('Updated description');
+  });
+
+  test('Should delete an task', async () => {
+    expect(taskId).toBeDefined();
+
+    const response = await request(app).delete(`/api/tasks/${taskId}`);
+
+    expect(response.status).toBe(204);
+  });
 });

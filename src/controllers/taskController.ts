@@ -2,8 +2,10 @@ import express from 'express';
 import { findUserByIdService } from '../services/userService';
 import {
   createTaskService,
+  deleteTaskByIdService,
   findAllTasksService,
   findTaskByIdService,
+  updateTaskByIdService,
 } from '../services/taskService';
 
 // CREATE - Create a task
@@ -45,7 +47,7 @@ export const findAllTasksController = async (
     res.status(200).json(tasks);
     return;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.sendStatus(400);
     return;
   }
@@ -66,6 +68,58 @@ export const findTaskByIdController = async (
     }
 
     res.status(200).json(task);
+    return;
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(400);
+    return;
+  }
+};
+
+export const updateTaskController = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    const { id } = req.params;
+    const { title, description, status } = req.body;
+
+    // Verificar se o task existe
+    const existingTask = await findTaskByIdService(id);
+    if (!existingTask) {
+      res.status(404).json({ error: 'Task not found' });
+      return;
+    }
+
+    console.log(existingTask);
+
+    const updatedTask = await updateTaskByIdService(id, {
+      title,
+      description,
+      status,
+    });
+    console.log(updatedTask);
+
+    res.status(200).json(updatedTask).end();
+    return;
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(400);
+    return;
+  }
+};
+
+// DELETE - Remove task by ID
+export const deleteTaskController = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  try {
+    const { id } = req.params;
+
+    const deletedTask = await deleteTaskByIdService(id);
+
+    res.status(204).json(deletedTask);
     return;
   } catch (error) {
     console.error(error);
