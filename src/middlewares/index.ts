@@ -33,6 +33,7 @@ export const isOwner = async (
     res.sendStatus(400);
   }
 };
+
 export const isAuthenticated = async (
   req: express.Request,
   res: express.Response,
